@@ -1,0 +1,37 @@
+{
+  "timezone": "America/Chicago",
+  "guide_hours": 72,
+  "time_shift_hours": 0,
+  "minimum_programmes_per_channel": 8,
+  "public_base_url": "https://cjrudermedia-1.github.io/kc-local-epg",
+  "channels": [
+    {
+      "id": "abc9kmbc.us",
+      "name": "KMBC 9 ABC",
+      "display_names": ["KMBC 9 ABC", "KMBC", "ABC 9 KMBC"],
+      "source": "TV Passport",
+      "tvpassport_url": "https://www.tvpassport.com/tv-listings/stations/abc-kmbc-kansas-city-mo-hd/8877"
+    },
+    {
+      "id": "cbs5kctv.us",
+      "name": "KCTV 5 CBS",
+      "display_names": ["KCTV 5 CBS", "KCTV", "CBS 5 KCTV"],
+      "source": "TV Passport",
+      "tvpassport_url": "https://www.tvpassport.com/tv-listings/stations/cbs-kctv-kansas-city-mo-hd/6676"
+    },
+    {
+      "id": "nbc41kshb.us",
+      "name": "KSHB 41 NBC",
+      "display_names": ["KSHB 41 NBC", "KSHB", "NBC 41 KSHB"],
+      "source": "TV Passport",
+      "tvpassport_url": "https://www.tvpassport.com/tv-listings/stations/nbc-kshb-kansas-city-mo-hd/6625"
+    },
+    {
+      "id": "fox4wdaf.us",
+      "name": "WDAF FOX 4",
+      "display_names": ["WDAF FOX 4", "WDAF", "FOX 4 WDAF"],
+      "source": "TV Passport",
+      "tvpassport_url": "https://www.tvpassport.com/tv-listings/stations/fox-wdaf-kansas-city-mo-hd/4848"
+    }
+  ]
+}
