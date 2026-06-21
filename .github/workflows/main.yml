@@ -1,0 +1,82 @@
+name: Build and Publish KC Local EPG
+
+on:
+  schedule:
+    - cron: "37 */6 * * *"
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: kc-local-epg-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    env:
+      PYTHONUNBUFFERED: "1"
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install scraper tools
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Build and validate EPG
+        run: python build_epg.py
+
+      - name: Prepare public site files
+        run: |
+          mkdir -p public_site
+          cp epg.xml public_site/epg.xml
+          cp playlist.m3u public_site/playlist.m3u
+          cp status.json public_site/status.json
+          cat > public_site/index.html <<'EOF'
+          <!doctype html>
+          <html lang="en">
+            <head>
+              <meta charset="utf-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1">
+              <title>Kansas City Local EPG</title>
+            </head>
+            <body>
+              <h1>Kansas City Local EPG</h1>
+              <ul>
+                <li><a href="epg.xml">EPG XMLTV file</a></li>
+                <li><a href="playlist.m3u">Playlist M3U file</a></li>
+                <li><a href="status.json">Build status JSON</a></li>
+              </ul>
+            </body>
+          </html>
+          EOF
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload GitHub Pages files
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: public_site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
