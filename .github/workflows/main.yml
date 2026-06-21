@@ -48,7 +48,6 @@ jobs:
         run: |
           mkdir -p public_site
           cp epg.xml public_site/epg.xml
-          cp playlist.m3u public_site/playlist.m3u
           cp status.json public_site/status.json
           cat > public_site/index.html <<'EOF'
           <!doctype html>
@@ -62,7 +61,6 @@ jobs:
               <h1>Kansas City Local EPG</h1>
               <ul>
                 <li><a href="epg.xml">EPG XMLTV file</a></li>
-                <li><a href="playlist.m3u">Playlist M3U file</a></li>
                 <li><a href="status.json">Build status JSON</a></li>
               </ul>
             </body>
